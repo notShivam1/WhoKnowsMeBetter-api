@@ -10,7 +10,7 @@ app.get("/", (req, res) => { // LANDING PAGE
   res.write("API Ok.");
 });
 
-app.post("/createQuiz", (req, res) => { // CREATION OF QUIZ AND STORED IN DB
+app.post("/quizzes", (req, res) => { // CREATION OF QUIZ AND STORED IN DB
   console.log(req.body);
   let q = new Quiz(req.body);
   q.save(err => {

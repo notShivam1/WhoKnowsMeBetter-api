@@ -1,17 +1,18 @@
 const mongoose = require("mongoose");
+const shortid = require("shortid");
 
 const QuizSchema = new mongoose.Schema({
-  uId: String,
-  createdAt: Date,
-  scores: [
+  uId: {type : String, default:shortid.generate()},
+  createdAt: {type : String, default:Date.now()} ,
+  scores:{type:  [
     {
       name: String,
       scoreCount: Number
     }
-  ],
+  ], default:[]},
   questions: [
     {
-      questionText: { type: String, minlength: 10, maxlength: 60 },
+      questionText: { type: String, minlength: 10, maxlength: 300 },
       qId: String,
       rightOption: String,
       options: {

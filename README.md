@@ -1,4 +1,4 @@
-# WhoKnosMeBetter API
+# WhoKnowsMeBetter API
 
 ## Instructions
 

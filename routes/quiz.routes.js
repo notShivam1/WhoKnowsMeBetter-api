@@ -11,18 +11,24 @@ router
   .route("/")
   .post((req, res) => {
     // CREATION OF QUIZ AND STORED IN DB
-    console.log(req.body);
+   // console.log(req.body);
     let q = new Quiz(req.body);
-    q.save().then(saved =>{
-      console.log('tis' + saved.uId);
-      res.send("tis done id sent back");
-    });
+    q.save()
+      .then(saved => {
+        console.log(saved.uId);
+        res.send("tis done id sent back");
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(500).json({ error: err });
+      });
   })
   .get((req, res) => {
     // ALL DOCUMENTS ARE SHOWN HERE
     Quiz.find({}, (err, results) => {
       if (err) {
         console.log(err);
+        res.status(500).json({ error: err });
       }
       console.log(results);
       res.send(results);
@@ -36,6 +42,7 @@ router
     Quiz.findOne({ uId: req.params.quizid }, (err, results) => {
       if (err) {
         console.log(err);
+        res.status(500).json({ error: err });
       }
       console.log(results);
       res.send(results);
@@ -50,6 +57,7 @@ router
       (err, results) => {
         if (err) {
           console.log(err);
+          res.status(500).json({ error: err });
         }
         res.send("updated the scores");
       }
@@ -60,6 +68,7 @@ router
     Quiz.deleteOne({ uId: req.params.quizid }, (err, results) => {
       if (err) {
         console.log(err);
+        res.status(500).json({ error: err });
       }
       res.send("deleted the document");
     });
@@ -70,6 +79,7 @@ router.get("/:quizid/:scores", (req, res) => {
   Quiz.findOne({ uId: req.params.quizid }, (err, results) => {
     if (err) {
       console.log(err);
+      res.status(500).json({ error: err });
     }
     console.log(results.scores);
     res.send(results.scores);

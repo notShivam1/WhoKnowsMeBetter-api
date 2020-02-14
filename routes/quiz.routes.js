@@ -1,21 +1,14 @@
 const express = require("express");
-const app = express();
 const Quiz = require("../models/quiz.model");
 let router = new express.Router();
-
-// app.get("/", (req, res) => { // LANDING PAGE
-//   res.write("API Ok.");
-// });
 
 router
   .route("/")
   .post((req, res) => {
     // CREATION OF QUIZ AND STORED IN DB
-   // console.log(req.body);
     let q = new Quiz(req.body);
     q.save()
       .then(saved => {
-        console.log(saved.uId);
         res.send("tis done id sent back");
       })
       .catch(err => {
@@ -30,7 +23,6 @@ router
         console.log(err);
         res.status(500).json({ error: err });
       }
-      console.log(results);
       res.send(results);
     });
   });
@@ -44,19 +36,16 @@ router
         console.log(err);
         res.status(500).json({ error: err });
       }
-      console.log(results);
       res.send(results);
     });
   })
   .put((req, res) => {
     // TO UPDATE THE SCORES WHEN THE QUIZ IS TAKEN
-    console.log(req.body);
     Quiz.updateOne(
       { uId: req.params.quizid },
       { $push: { scores: req.body } },
       (err, results) => {
         if (err) {
-          console.log(err);
           res.status(500).json({ error: err });
         }
         res.send("updated the scores");
@@ -64,24 +53,30 @@ router
     );
   })
   .delete((req, res) => {
-    // TO DELETE A QUIZ
+    //TO DELETE A QUIZ
     Quiz.deleteOne({ uId: req.params.quizid }, (err, results) => {
       if (err) {
         console.log(err);
         res.status(500).json({ error: err });
-      }
-      res.send("deleted the document");
+      };
+      if(!results){
+        res.status(404).send("not found");
+      };
     });
+    res.json({message:"deleted the document"});
+
   });
 
-router.get("/:quizid/:scores", (req, res) => {
+router.get("/:quizid/scores", (req, res) => {
   // TO GET ALL THE SCORES ON THE SCORES PAGE
   Quiz.findOne({ uId: req.params.quizid }, (err, results) => {
     if (err) {
       console.log(err);
       res.status(500).json({ error: err });
     }
-    console.log(results.scores);
+    if(!results.scores){
+      res.send("no scores found");
+    }
     res.send(results.scores);
   });
 });

@@ -13,8 +13,12 @@ mongoose.connect(urlDB, { useNewUrlParser: true }, (err, db) => {
   }
   console.log("DB connected succesfully.")
 });
+
 app.use("/quizzes", routes);
 
 app.listen(3000, () => {
   console.log("working at 3000");
 });
+
+
+module.exports =  app;

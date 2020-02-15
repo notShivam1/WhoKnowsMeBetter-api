@@ -24,6 +24,8 @@ app.listen(PORT, () => {
   console.log(`working at ${PORT}`);
 });
 
+
+//error middleware
 app.use((err, req, res, next) => {
   if (req.xhr) {
     res.status(500).send({ error: "Something failed!" });
@@ -31,5 +33,7 @@ app.use((err, req, res, next) => {
     next(err);
   }
 });
+
+
 
 module.exports = app;

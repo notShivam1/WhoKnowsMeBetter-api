@@ -16,7 +16,7 @@ const QuizSchema = new mongoose.Schema({
   questions: [
     {
       questionText: { type: String, minlength: 10, maxlength: 300 },
-      qId: String,
+      qId: { type: String, default: shortid.generate() },
       rightOption: String,
       options: {
         type: [

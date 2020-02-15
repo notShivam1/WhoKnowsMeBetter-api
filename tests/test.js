@@ -1,6 +1,6 @@
 const chai = require("chai");
 const chaiHttp = require("chai-http");
-const express = require("express");
+const Quiz = require("../models/quiz.model");
 const app = require("../server");
 
 chai.use(chaiHttp);
@@ -88,31 +88,35 @@ describe("quizid", () => {
     }),
     describe("/delete", () => {
       it("deletes the quiz", done => {
-        chai
-          .request(app)
-          .delete("/quizzes/YzKwKpYI")
-          .end((err, res) => {
-            console.log(res.body);
-            expect(err).to.be.null;
-            expect(res).to.have.status(200);
-            expect(res.body.message).to.be.equal("deleted the document");
-            done();
-          });
+        Quiz.findOne({}, (err, result) => {
+          chai
+            .request(app)
+            .delete(`/quizzes/${result.uId}`)
+            .end((err, res) => {
+              console.log(res.body);
+              expect(err).to.be.null;
+              expect(res).to.have.status(200);
+              expect(res.body.message).to.be.equal("deleted the document");
+              done();
+            });
+        });
       });
     });
 });
 
 describe("scores", () => {
   describe("/ get", () => {
-    it("gets all scores on the score page", done => {
-      chai
-        .request(app)
-        .get("/quizzes//yOO0kyMW/scores")
-        .end((err, res) =>{
-          expect(err).to.be.null;
-          expect(res).to.have.status(200);
-          done();
-        })
+    it("gets all scores on the score page",  done => {
+      Quiz.findOne({}, (err, result) => {
+        chai
+          .request(app)
+          .get(`/quizzes/${result.uId}/scores`)
+          .end((err, res) => {
+            expect(err).to.be.null;
+            expect(res).to.have.status(200);
+            done();
+          });
+      });
     });
   });
 });

@@ -8,7 +8,9 @@ chai.should();
 
 const expect = chai.expect;
 describe("quizzes", () => {
-  describe("/ get", () => {
+  describe("/ get", function()  {
+    this.timeout(10000); 
+
     it("shows all docs", done => {
       chai
         .request(app)
@@ -105,7 +107,9 @@ describe("quizid", () => {
 });
 
 describe("scores", () => {
-  describe("/ get", () => {
+  describe("/ get", function() {
+    this.timeout(10000); 
+
     it("gets all scores on the score page",  done => {
       Quiz.findOne({}, (err, result) => {
         chai

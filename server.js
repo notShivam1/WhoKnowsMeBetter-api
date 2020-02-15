@@ -6,7 +6,7 @@ const bodyParser = require("body-parser");
 require("dotenv").config();
 const urlDB = process.env.URLDB;
 const PORT = process.env.PORT || 5000;
-// this is a useless comment
+
 app.use(bodyParser.json());
 
 mongoose.connect(urlDB, { useNewUrlParser: true }, (err, db) => {

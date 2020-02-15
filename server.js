@@ -5,6 +5,7 @@ const routes = require("./routes/quiz.routes");
 const bodyParser = require("body-parser");
 require("dotenv").config();
 const urlDB = process.env.URLDB;
+const PORT = process.env.PORT || 5000
 app.use(bodyParser.json());
 
 mongoose.connect(urlDB, { useNewUrlParser: true }, (err, db) => {
@@ -13,11 +14,14 @@ mongoose.connect(urlDB, { useNewUrlParser: true }, (err, db) => {
   }
   console.log("DB connected succesfully.")
 });
+app.get("/", (req, res)=>{
+  res.send("api working");
+})
 
 app.use("/quizzes", routes);
 
-app.listen(3000, () => {
-  console.log("working at 3000");
+app.listen(PORT, () => {
+  console.log(`working at ${PORT}`);
 });
 
 

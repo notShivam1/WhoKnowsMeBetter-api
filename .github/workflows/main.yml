@@ -15,6 +15,10 @@ jobs:
         env:
           URLDB: ${{secrets.URLDB}}
         run: npm test
+      - name: configuring name
+        run: git config --global user.name "MadSadLad"
+      - name: configuring email
+        run: git config --global user.email "shivam.119966@yahoo.com"
       - name: Fetch from heroku
         env:
           HEROKU_API_TOKEN: ${{ secrets.HEROKU_API_TOKEN }}

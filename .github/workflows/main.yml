@@ -19,6 +19,8 @@ jobs:
         run: git config --global user.name "MadSadLad"
       - name: configuring email
         run: git config --global user.email "shivam.119966@yahoo.com"
+      - name: unshallow
+        run: git fetch --all --unshallow
       - name: Deploy to Heroku
         env:
           HEROKU_API_TOKEN: ${{ secrets.HEROKU_API_TOKEN }}

@@ -8,9 +8,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      - name: unshallow
+        run: git fetch --all --unshallow
       - name: Install dependencies
         run: npm ci
-
       - name: run the tests
         env:
           URLDB: ${{secrets.URLDB}}
@@ -24,6 +25,5 @@ jobs:
           HEROKU_API_TOKEN: ${{ secrets.HEROKU_API_TOKEN }}
           HEROKU_APP_NAME: "who-knows-me-better-api"
         if: github.ref == 'refs/heads/master' && job.status == 'success'
-        run: |
-         git fetch --all --unshallow
-         git push https://heroku:$HEROKU_API_TOKEN@git.heroku.com/$HEROKU_APP_NAME.git origin/master:master -f
+        run: git push https://heroku:$HEROKU_API_TOKEN@git.heroku.com/$HEROKU_APP_NAME.git origin/master:master -fgit push https://heroku:$HEROKU_API_TOKEN@git.heroku.com/$HEROKU_APP_NAME.git origin/master:master -f
+         

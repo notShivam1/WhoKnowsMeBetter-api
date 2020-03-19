@@ -33,19 +33,18 @@ const QuizSchema = new mongoose.Schema({
   ]
 });
 
-QuizSchema.pre("validate", function(next) {
-  //console.log(this);
-  for (let i = 0; i < this.questions.length; i++) {
-    for (let j = 0; j < this.questions[i].options.length; j++) {
-      if (this.questions[i].rightOption == this.questions[i].options[j].oId) {
-        return next();
-      }
-    }
-  }
-  return next(
-    new Error("Right option doesnt match any of the present options")
-  );
-});
+// QuizSchema.pre("validate", function(next) {
+//   for (let i = 0; i < this.questions.length; i++) {
+//     for (let j = 0; j < this.questions[i].options.length; j++) {
+//       if (this.questions[i].rightOption == this.questions[i].options[j].oId) {
+//         return next();
+//       }
+//     }
+//   }
+//   return next(
+//     new Error("Right option doesn't match any of the present options")
+//   );
+// });
 
 let Quiz = mongoose.model("Quiz", QuizSchema);
 

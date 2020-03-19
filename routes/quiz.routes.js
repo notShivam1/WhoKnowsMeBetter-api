@@ -6,15 +6,18 @@ router
   .route("/")
   .post((req, res) => {
     // CREATION OF QUIZ AND STORED IN DB
+    console.log(req.body);
     let q = new Quiz(req.body);
     q.save()
       .then(saved => {
-        res.send("tis done id sent back");
+        // res.send("tis done id sent back");
+        res.send(saved.uId);
       })
       .catch(err => {
         console.log(err);
         res.status(500).json({ error: err });
       });
+
   })
   .get((req, res) => {
     // ALL DOCUMENTS ARE SHOWN HERE

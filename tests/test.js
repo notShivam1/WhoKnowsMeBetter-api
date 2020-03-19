@@ -7,6 +7,7 @@ chai.use(chaiHttp);
 chai.should();
 
 const expect = chai.expect;
+
 describe("quizzes", () => {
   describe("/ get", function()  {
     this.timeout(10000); 
@@ -40,7 +41,7 @@ describe("quizzes", () => {
                   },
                   {
                     oid: "opt2",
-                    optionText: "shivam"
+                    optionText: "shovam"
                   },
                   {
                     oid: "opt3",

@@ -7,7 +7,13 @@ require("dotenv").config();
 const urlDB = process.env.URLDB;
 const PORT = process.env.PORT || 5000;
 
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 mongoose.connect(urlDB, { useNewUrlParser: true }, (err, db) => {
   if (err) {
@@ -15,6 +21,7 @@ mongoose.connect(urlDB, { useNewUrlParser: true }, (err, db) => {
   }
   console.log("DB connected succesfully.");
 });
+
 app.get("/", (req, res) => {
   res.send("api working");
 });
@@ -25,7 +32,6 @@ app.listen(PORT, () => {
   console.log(`working at ${PORT}`);
 });
 
-
 //error middleware
 app.use((err, req, res, next) => {
   if (req.xhr) {
@@ -34,7 +40,5 @@ app.use((err, req, res, next) => {
     next(err);
   }
 });
-
-
 
 module.exports = app;

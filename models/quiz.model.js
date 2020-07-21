@@ -8,10 +8,10 @@ const QuizSchema = new mongoose.Schema({
     type: [
       {
         name: String,
-        scoreCount: Number
-      }
+        scoreCount: Number,
+      },
     ],
-    default: []
+    default: [],
   },
   questions: [
     {
@@ -22,15 +22,15 @@ const QuizSchema = new mongoose.Schema({
         type: [
           {
             oId: String,
-            optionText: { type: String, minlength: 4, maxlength: 100 }
-          }
+            optionText: { type: String, minlength: 4, maxlength: 100 },
+          },
         ],
-        validate: function(val) {
+        validate: function (val) {
           return val.length <= 4 && val.length >= 2;
-        }
-      }
-    }
-  ]
+        },
+      },
+    },
+  ],
 });
 
 // QuizSchema.pre("validate", function(next) {
